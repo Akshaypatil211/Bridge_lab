@@ -1,0 +1,5 @@
+find -mtime +7
+
+cat password. txt | awk -F ":"  '{print $1}'
+
+cat passwd | awk -F ":" { if($4>=1000) { {print $0} } }

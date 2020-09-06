@@ -1,0 +1,473 @@
+----------------------SEQUENCE-------------------------------------------------------
+1)SingleDigit no
+$ cat singledigit.sh
+#! /bin/bash
+echo $((RANDOM%10))
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment/sequence (master)
+$ ./singledigit.sh
+8
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment/sequence (master)
+$ ./singledigit.sh
+0
+----------------------------------------------------------------------------------------------------------------------------
+2)DICE using RANDOM
+
+$ cat dice.sh
+#!/bin/bash
+random=$((RANDOM%6+1))
+echo $random
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment/sequence (master)
+$ ./dice.sh
+4
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment/sequence (master)
+$ ./dice.sh
+3
+
+---------------------------------
+3)Add two random dice number and print the result
+
+~/TerminalCommands/linux-content/assignment/sequence (master)
+$ cat add_dice.sh
+#!/bin/bash -x
+d1=$((RANDOM%6+1))
+d2=$((RANDOM%6+1))
+sum=$((d1+d2))
+echo "sum of 2 dice no is :"$sum
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment/sequence (master)
+$ ./add_dice.sh
++ d1=5
++ d2=6
++ sum=11
++ echo 'sum of 2 dice no is :11'
+sum of 2 dice no is :11
+
+----------------------------------------------------------------------------
+4)Write a program that reads 5 random 2 digit value find the sum and avg
+
+$ cat 5random.sh
+#!/bin/bash
+lower=10
+sum=0
+upper=99
+mod=1+upper-lower
+for((i=1;i<=5;i++))
+        do
+                random=$((lower+RANDOM%mod))
+                echo $random
+                sum=$((sum+random))
+        done
+echo "sum is :"$sum
+avg=$(($sum/5))
+echo "avg is :"$avg
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment/sequence (master)
+$ ./5random.sh
+98
+98
+23
+54
+20
+sum is :293
+avg is :58
+
+----------------------------------------------------------
+5)Unit conversion
+a.1ft=12 in then 42 in= ?
+b.Rectangular plot of 60x40 in m
+c.Calculate area 25 such plots in acres
+-------------------------------------------------------------------------------------------------------
+------Selection with if & else-----------------------
+1)
+
+----------------------------------------------------------------
+2)Write a program to take day and month as input and true if between 20march to 20 june  
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment/Selection_if (master)
+$  cat day_between20march_20june.sh
+#!/bin/bash
+read -p "Enter the day: " day
+read -p "Enter the month: " month
+echo $day
+echo $month
+if [[ $month -eq 3 && $day -ge 20 && $day -le 31 ]] || [[ $month -eq 4 && $day -ge 1 && $day -le 30 ]] || [[ $month -eq 5 && $day -ge 1 && $day -le 31 ]] || [[ $month -eq 6 && $day -ge 1 && $day -le 20 ]]
+then
+echo "true"
+else
+echo "false"
+fi
+
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment/Selection_if (master)
+$ ./day_between20march_20june.sh
+Enter the day: 25
+Enter the month: 4
+25
+4
+true
+
+---------------------------------------------------------------
+3)Leap Year 
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment/Selection_if (master)
+$ cat leapyear.sh
+#!/bin/bash
+read -p "enter the year :" year
+max=9999
+min=1000
+if [[ $year -ge $min && $year -le $max ]]
+then
+
+        if [[ $year%4 -eq 0 && $year%100 -ne 0 ]] || [[ $year%400 -eq 0 ]]
+        then
+                echo "leap year"
+        else
+                echo "not leap year"
+        fi
+else
+        echo "Enter 4 digit year"
+fi
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment/Selection_if (master)
+$ ./leapyear.sh
+enter the year :2048
+leap year
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment/Selection_if (master)
+$ ./leapyear.sh
+enter the year :25000
+Enter 4 digit year
+
+----------------------------------------------------------------
+4)simulate coin flip flop print head and tail
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment/Selection_if (master)
+$ cat filpcoin.sh
+#!/bin/bash
+Flip=$((RANDOM%2))
+if [[ $Flip -eq 0 ]]
+then
+        echo "heads"
+else
+        echo "Tails"
+fi
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment/Selection_if (master)
+$ ./filpcoin.sh
+heads
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment/Selection_if (master)
+$ ./filpcoin.sh
+heads
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment/Selection_if (master)
+$ ./filpcoin.sh
+Tails
+
+
+
+----------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------
+------Selection with if ,elif & else-----------------------
+1)Read a single digit number print in words
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment/Selection_elseif (master)
+$ cat Single_digit_word.sh
+#!/bin/bash
+read -p "enter the Number :" no
+if [ $no -eq 0 ]
+then
+        echo "ZERO"
+elif [ $no -eq 1 ]
+then
+        echo "ONE"
+elif [ $no -eq 2 ]
+then
+        echo "TWO"
+elif [ $no -eq 3 ]
+then
+        echo "THREE"
+elif [ $no -eq 4 ]
+then
+        echo "FOUR"
+elif [ $no -eq 5 ]
+then
+        echo "FIVE"
+elif [ $no -eq 6 ]
+then
+        echo "SIX"
+
+elif [ $no -eq 7 ]
+then
+        echo "SEVEN"
+elif [ $no -eq 8 ]
+then
+        echo "EIGHT"
+elif [ $no -eq 9 ]
+then
+        echo "NINE"
+else
+        echo "Invaild number"
+fi
+
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment/Selection_elseif (master)
+$ ./Single_digit_word.sh
+enter the Number :5
+FIVE
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment/Selection_elseif (master)
+$ ./Single_digit_word.sh
+enter the Number :25
+Invaild number
+
+----------------------------------------------------------------
+2)Display The week day
+
+
+$ cat Weekofday.sh
+#!/bin/bash
+read -p "enter the no of day in Week  :" no
+if [ $no -eq 0 ]
+then
+        echo "SUNDAY"
+elif [ $no -eq 1 ]
+then
+        echo "MONDAY"
+elif [ $no -eq 2 ]
+then
+        echo "TUESDAY"
+elif [ $no -eq 3 ]
+then
+        echo "WEDUSDaY"
+elif [ $no -eq 4 ]
+then
+        echo "THRUSDAY"
+elif [ $no -eq 5 ]
+then
+        echo "FRIDAY"
+elif [ $no -eq 6 ]
+then
+        echo "SATURDAY"
+
+else
+        echo "Invaild number enter no between 0 to 6"
+fi
+
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment/Selection_elseif (master)
+$ ./Weekofday.sh
+enter the no of day in Week  :5
+FRIDAY
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment/Selection_elseif (master)
+$ ./Weekofday.sh
+enter the no of day in Week  :1
+MONDAY
+
+---------------------------------------------------------------
+3)Read 1,10,100 display unit,ten etc
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment/Selection_elseif (master)
+$ cat Unitofnumber.sh
+#!/bin/bash
+read -p "enter the no of day in Week  :" no
+if [ $no -eq 1 ]
+then
+        echo "UNIT"
+elif [ $no -eq 10 ]
+then
+        echo "TEN"
+elif [ $no -eq 100 ]
+then
+        echo "HUNDRED"
+elif [ $no -eq 1000 ]
+then
+        echo "THOUSAND"
+elif [ $no -eq 10000 ]
+then
+        echo "TEN THOUSAND"
+elif [ $no -eq 100000 ]
+then
+        echo "one hundred thousand"
+
+else
+        echo "Invaild number enter no between 0 to 6"
+fi
+
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment/Selection_elseif (master)
+$ ./Unitofnumber.sh
+enter the no of day in Week  :1000
+THOUSAND
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment/Selection_elseif (master)
+$ ./Unitofnumber.sh
+enter the no of day in Week  :100
+HUNDRED
+
+----------------------------------------------------------------
+4)Enter 3 numbers do arithrematic operation
+
+$ cat arithmaticoperation.sh
+#!/bin/bash
+read -p "enter the three number: " a
+read -p "enter the three number: " b
+read -p "enter the three number: " c
+echo $a $b $c
+p=$(($a+$b*$c))
+q=$(($a%$b+$c))
+r=$(($c+$a/$b))
+s=$(($a*$b+$c))
+echo $p $q $r $s
+
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment/Selection_elseif (master)
+$ ./arithmaticoperation.sh
+enter the three number: 20
+enter the three number: 25
+enter the three number: 32
+20 25 32
+820 52 32 532
+
+
+----------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------
+------Selection with Case-----------------------
+1)1)Read a single digit number print in words
+
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment/Selection_case (master)
+$ cat numberinword.sh
+#!/bin/bash
+read -p "enter the number: " no
+case $no in
+        0)
+                echo "ZERO"
+                ;;
+        1)
+                 echo "ONE"
+                 ;;
+        2)
+                echo "TWO"
+                ;;
+        3)
+                echo "THREE"
+                ;;
+        4)
+                echo "FOUR"
+                ;;
+        5)
+                echo "FIVE"
+                ;;
+        6)
+                echo "SIX"
+                ;;
+        7)
+                echo "SEVEN"
+                ;;
+        8)
+                echo"EIGHT"
+                ;;
+        9)
+                echo"NINE"
+                ;;
+        *)
+                echo "invaild digit"
+esac
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment/Selection_case (master)
+$ ./numberinword.sh
+enter the number: 6
+SIX
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment/Selection_case (master)
+$ ./numberinword.sh
+enter the number: 3
+THREE
+
+----------------------------------------------------------------
+2)Display The week day
+
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment/Selection_case (master)
+$ cat weekday.sh
+#!/bin/bash
+read -p "enter the number: " no
+case $no in
+        0)
+                echo "SUNDAY"
+                ;;
+        1)
+                 echo "MONDAY"
+                 ;;
+        2)
+                echo "TUESDAY"
+                ;;
+        3)
+                echo "WEDUSDAY"
+                ;;
+        4)
+                echo "THRUSDAY"
+                ;;
+        5)
+                echo "FRIDAY"
+                ;;
+        6)
+                echo "SATURDAY"
+                ;;
+        *)
+                echo "invaild week no"
+esac
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment/Selection_case (master)
+$ ./weekday.sh
+enter the number: 6
+SATURDAY
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment/Selection_case (master)
+$ ./weekday.sh
+enter the number: 0
+SUNDAY
+
+
+---------------------------------------------------------------
+3)Read 1,10,100 display unit,ten etc
+
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment/Selection_case (master)
+$ cat unitfromnumber.sh
+#!/bin/bash
+read -p "enter the number: " no
+case $no in
+        1)
+                echo "UNIT"
+                ;;
+        10)
+                 echo "TEN"
+                 ;;
+        100)
+                echo "HUNDRED"
+                ;;
+        1000)
+                echo "THOUSAND"
+                ;;
+        10000)
+                echo "TEN THOUSAND"
+                ;;
+        *)
+                echo "invaild week no"
+esac
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment/Selection_case (master)
+$ ./unitfromnumber.sh
+enter the number: 1000
+THOUSAND
+
+----------------------------------------------------------------
+4)
+----------------------------------------------------------------

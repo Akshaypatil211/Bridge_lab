@@ -1,0 +1,17 @@
+Syntax
+#!/bin/bash -x
+if [ condition ]
+then
+        Statements
+elif
+then
+        Statements
+else
+        Statements
+fi
+
+var=`awk '{print $2 " : " $7}' data.csv`
+
+
+
+echo '%s\n' "${arr[@]}" | tr ' ' '\n' | sort -n | tail -2 | head -1

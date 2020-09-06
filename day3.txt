@@ -1,0 +1,122 @@
+$cat passwd |awk -F: '{if ($1=="cups-pk-helper") print $0}'| awk -F- '{print $6}'
+
+$ cat passwd | awk -F: '{if ($1="gnats" && $4==41)  print $5}' | awk -F- '{print $2}'|awk '{print $1}'
+
+ $cat passwd | awk -F : '{if ($3 =="101") print $5}'|awk '{print$2}'|awk -F , '{print$1}'
+
+https://docs.google.com/forms/d/e/1FAIpQLSesB-v3mFDlHRtWD58n0HgHG0QG60HIzBDo6jF9ZqdYZvvNSA/viewform?vc=0&c=0&w=1
+
+#! /bin/bash
+read -p "enter lower limit" lower
+read -p "enter upper limit" upper
+random=$(( lower + RANDOM%(1+upper-lower) ))
+echo $random
+
+#! /bin/bash
+echo "5 random variables are : "
+ulimit=99
+llimit=10
+mods=$((ulimit-llimit+1))
+num1=$((llimit+RANDOM%mods))
+num2=$((llimit+RANDOM%mods))
+num3=$((llimit+RANDOM%mods))
+num4=$((llimit+RANDOM%mods))
+num5=$((llimit+RANDOM%mods))
+echo $num1 $num2 $num3 $num4 $num5
+sum=$((num1+num2+num3+num4+num5))
+avg=$((sum/5))
+echo "Sum is : " $sum
+echo "Average is : " $avg
+
+DAY 4
+#find the count of all url bet 9 to 10
+$ cat access.log | awk -F : '{if($2=="09") print $0}'|awk '{print $7}' |sort |uniq -c |sort -nr|head -5
+
+#!/bin/bash -x
+for file in `find *.java`
+do
+   cp template.txt $file
+   echo "$file"
+done
+
+day5
+
+for file in `find -name '*.java' -o -name '*.py'`
+do
+   cp temp.txt $file
+done
+
+copy$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+  GNU nano 4.9.3                       copy1.sh
+#! /bin/bash
+for file in `find -name '*.java' -o -name '*.py'`
+do
+        echo $file "filename"
+        extension=`echo $file | awk -F. '{print $3}'`
+        echo $extension
+        if [ $extension == "java"  ]
+        then
+                cp  ./template.txt $file
+        else
+                cp ./template1.txt $file
+        fi
+
+done
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+for file in `find -name '*.java' -o -name '*.py'`
+do
+   echo $file "filename"
+   extension=`echo $file | awk -F. '{print $3}'`
+   echo $extension
+   if [ $extension == "java" ]
+   then
+      cp ./temp.txt $file
+   else
+      cp ./temp1.txt $file
+   fi
+done
+#####################
+#! /bin/bash -x
+for file in find -name 'H*.java'
+do
+
+        echo $file
+       
+        class=`echo $file |awk -F. '{print $1}'`
+        javac $file
+        java $class
+       
+
+        echo $file
+done
+
+#########nested for########
+
+#! /bin/bash
+for file in `find -name '*.java'`
+do
+        class=`echo $file | awk -F/ '{print $2}' | awk -F. '{print $1}'`
+        flag=0
+        for cfile in `find -name '*.class'`
+        do
+                cname=`echo $cfile | awk -F/ '{print $2}' | awk -F. '{print $1}'`
+                if [ "$cname" == "$class" ]
+                then
+                        flag=1
+                fi
+        done
+        if [ $flag -eq 0 ]
+ then
+                javac $file
+                java $class
+      else
+                java $class
+        fi
+
+done
+###########################
+$ cat data.csv |grep -i captain |awk '{sum+=$4}END{print sum/NR}'
+
+
+        

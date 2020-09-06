@@ -1,0 +1,345 @@
+1)-Get the user info from /etc/passwd and change the ownership of home directory
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment (master)
+$ cat user.sh
+#! /bin/bash
+
+#cat passwd
+cat passwd| awk -F ":"  '{print $1}'
+cat passwd |awk -F: '{if ($3 >=1000) print $0}'
+user=`cat passwd |awk -F: '{if ($3 >=1000) print $0}'|awk -F: '{print $6}'`
+echo $user
+#chmod 777 $user
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment (master)
+$ ./user.sh
+root
+daemon
+bin
+sys
+sync
+games
+man
+lp
+mail
+news
+uucp
+proxy
+www-data
+backup
+list
+irc
+gnats
+nobody
+systemd-network
+systemd-resolve
+syslog
+messagebus
+_apt
+uuidd
+avahi-autoipd
+usbmux
+dnsmasq
+rtkit
+cups-pk-helper
+speech-dispatcher
+whoopsie
+kernoops
+saned
+pulse
+avahi
+colord
+hplip
+geoclue
+gnome-initial-setup
+gdm
+anurag
+bind
+mysql
+epmd
+rabbitmq
+postgres
+tomcat
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+anurag:x:1000:1000:aashish:/home/anurag:/bin/bash
+/nonexistent /home/anurag
+
+
+------------------------------------------------------------------------------------------------
+2)-Move files from one folder to the respective folders
+
+$ cat Copyfiles.sh
+#! /bin/bash -x
+for file in `ls *.txt`
+do
+foldername=`echo $file | awk -F. '{print $1}'`;
+if [ -d $foldername ]
+then
+        rm -r $foldername
+fi
+mkdir  $foldername;
+cp  $file $foldername
+done
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment (master)
+$ ./Copyfiles.sh
+++ ls abc.txt def.txt ghi.txt jkl.txt
++ for file in `ls *.txt`
+++ echo abc.txt
+++ awk -F. '{print $1}'
++ foldername=abc
++ '[' -d abc ']'
++ rm -r abc
++ mkdir abc
++ cp abc.txt abc
++ for file in `ls *.txt`
+++ echo def.txt
+++ awk -F. '{print $1}'
++ foldername=def
++ '[' -d def ']'
++ rm -r def
++ mkdir def
++ cp def.txt def
++ for file in `ls *.txt`
+++ echo ghi.txt
+++ awk -F. '{print $1}'
++ foldername=ghi
++ '[' -d ghi ']'
++ rm -r ghi
++ mkdir ghi
++ cp ghi.txt ghi
++ for file in `ls *.txt`
+++ echo jkl.txt
+++ awk -F. '{print $1}'
++ foldername=jkl
++ '[' -d jkl ']'
++ rm -r jkl
++ mkdir jkl
++ cp jkl.txt jkl
+
+------------------------------------------------------------------------------------------
+3)Append Current date to all log files have extension .log.1
+
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment/date (master)
+$ ls
+3  abc.log.1  def.log.1  ghi.log.1  jkl.log.1  logdate.sh*  mno.log.1
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment/date (master)
+$ cat logdate.sh
+#! /bin/bash
+for file in `ls *.log.1`
+do
+filename=`echo $file | awk -F. '{print $1}'`;
+echo $filename
+date=`date +%d%m%Y`
+echo $date
+#`date +%D | awk  -F/ '{print $0}'`
+mv $file $filename-$date.log
+done
+
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment/date (master)
+$ ./logdate.sh
+abc
+22082020
+def
+22082020
+ghi
+22082020
+jkl
+22082020
+mno
+22082020
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment/date (master)
+$ ls
+3                 def-22082020.log  jkl-22082020.log  mno-22082020.log
+abc-22082020.log  ghi-22082020.log  logdate.sh*
+
+---------------------------------------------------------------------------------------------------------
+4)Archieve the files from /var/log which is modified 7 days ago
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment (master)
+$ ls
+abc/        akshay/     Copyfiles.sh*  def.txt     ghi.txt  ls/
+abc.txt     backup/     date/          folder.sh*  jkl/     prac/
+access.log  backup.sh*  def/           ghi/        jkl.txt  user.sh*
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment (master)
+$ cat backup.sh
+#! /bin/bash -x
+files=`find -mtime +7`
+echo $files
+for x in $files
+do
+mv $x  backup
+done
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment (master)
+$ ./backup.sh
+++ find -mtime +7
++ files=./backup/passwd
++ echo ./backup/passwd
+./backup/passwd
++ for x in $files
++ mv ./backup/passwd backup
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment (master)
+$ ls backup
+passwd
+
+----------------------------------------------------------------------------------------------------------------
+5)Check if a folder exists or not
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment (master)
+$ cat folder.sh
+#!/bin/bash
+folders=`find  -type d`
+echo $folders
+read -p "enter the folder name u want to create : " foldername
+if [ -d $foldername ]
+then
+        echo "folder already exists"
+else
+mkdir $foldername
+echo "folder crated sucessfully"
+fi
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment (master)
+$ ./folder.sh
+. ./abc ./akshay ./backup ./date ./def ./ghi ./jkl ./ls ./prac ./date
+enter the folder name u want to create : akshay
+folder already exists
+
+---------------------------------------------------------------------
+6)Execute "Hello" and "ls" check execution status
+
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment (master)
+$ cat hello.sh
+#!/bin/bash -x
+read -p "enter command " command
+$command
+x=`echo $?`
+if [ $x -eq 0  ]
+then
+        echo "sucess"
+else
+        echo "fail"
+fi
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment (master)
+$ ./hello.sh
++ read -p 'enter command ' command
+enter command hello
++ hello
+./hello.sh: line 3: hello: command not found
+++ echo 127
++ x=127
++ '[' 127 -eq 0 ']'
++ echo fail
+fail
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment (master)
+$ ./hello.sh
++ read -p 'enter command ' command
+enter command ls
++ ls
+''$'\033''[A'$'\033''[Bdate'   akshay         date        ghi        jkl.txt
+ abc                           backup         def         ghi.txt    ls
+ abc.txt                       backup.sh      def.txt     hello.sh   prac
+ access.log                    Copyfiles.sh   folder.sh   jkl        user.sh
+++ echo 0
++ x=0
++ '[' 0 -eq 0 ']'
++ echo sucess
+sucess
+
+
+-------------------------------------------------------------------------------------
+7)Set and enviroment 'usersecret='dH34xJaa23'
+
+---------------------------------------------------------------------------------------------------------------------
+8)Find the word and its occrrence in the files
+
+$ grep -c like access.log
+3022
+-----------------------------------------------------------------------------
+9)Process table
+---------------------------------------------------------------------
+10)print last 4 frequently access
+
+cat access.log |awk -F " " '{print $7}'|sort |uniq -c|tail -4
+      1 /vbulletin5/
+    199 /vendor.js
+     15 /vendor.js.map
+      4 /wp-login.php
+
+------------------------------------------------------------------------------
+11)print list of last 4freqently access unique urls at particulat hour
+
+------------------------------------------------------------------------------------------
+12)print list of web response code count sorted ordered
+---------------------------------------
+13)print list of last 10 unique sorted client id
+-----------------------------------
+14)DATA manupulation
+i)
+$ cat data.csv
+Id EmployeeName JobTitle        BasePay OvertimePay OtherPay TotalPay TotalPayBenefits
+1  NATHANIEL    GM              167411  0           400184   567595   567595
+2  GARY         CAPTAIN         155966  245131      137811   538909   538909
+3  ALBERT       CAPTAIN         212739  106088      16452    335279   335279
+4  CHRISTOPHER  MECHANIC        77916   56120       198306   332343   332343
+5  PATRICK      DEPUTYCHIEF     134401  9737        182234   326373   326373
+6  DAVID        ASSTDEPUTY      118602  8601        189082   316285   316285
+7  ALSON        BATTALIONCHIEF  92492   89062       134426   315981   315981
+8  DAVID        DEPUTYDIRECTOR  256576  0           51322    307899   307899
+10 JOANNE       CHIEF           285262  0           17115    302377   302377
+12 PATRICIA     CAPTAIN         99722   87082       110804   297608   297608
+13 EDWARD       EXECUTIVE       294580  0           0        294580   294580
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content (master)
+$ cat data.csv | awk '{if ($4>100000) print $2" "$7}'
+EmployeeName TotalPay
+NATHANIEL 567595
+GARY 538909
+ALBERT 335279
+PATRICK 326373
+DAVID 316285
+DAVID 30
+
+ii)
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content (master)
+$ cat data.csv | awk '{if ($3=="CAPTAIN") print $0}'
+2  GARY         CAPTAIN         155966  245131      137811   538909   538909
+3  ALBERT       CAPTAIN         212739  106088      16452    335279   335279
+12 PATRICIA     CAPTAIN         99722   87082       110804   297608   297608
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content (master)
+$ cat data.csv | awk '{if ($3=="CAPTAIN") sum +=$7}END{print sum}'
+1171796
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content (master)
+$ cat data.csv | awk '{if ($3=="CAPTAIN") sum +=$7}END{print sum/3}'
+390599
+
+iii)
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content (master)
+$ cat data.csv | awk '{if ($5>7000 && $5<10000) print $3" "$5}'
+DEPUTYCHIEF 9737
+ASSTDEPUTY 8601
+
+iv)
+$ cat data.csv | awk '{sum+=$4}END{print sum/NR}'
+157972
+
+--------------------------------------------
+15)find the difference between orginal file and the update file 
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content (master)
+$ diff -q original/ updated/
+Only in original/: original-file.sh
+Only in updated/: updated-file.sh
+

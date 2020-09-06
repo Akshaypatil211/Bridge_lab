@@ -1,0 +1,45 @@
+DAY@2
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/makecopy (master)
+$ ls *.txt
+a.txt  b.txt  c.txt
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/makecopy (master)
+$ for filename in `ls *.txt`
+> do
+> echo $filename
+> done
+a.txt
+b.txt
+c.txt
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/makecopy (master)
+$ for filename in `ls *.txt`
+> do
+> foldername=`echo $filename | awk -F. '{print $1}'`
+> mkdir $foldername
+> cp $filename $foldername
+> echo $filename "copied to" $foldername
+> done
+mkdir: cannot create directory ‘a’: File exists
+a.txt copied to a
+mkdir: cannot create directory ‘b’: File exists
+b.txt copied to b
+mkdir: cannot create directory ‘c’: File exists
+c.txt copied to c
+
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+$ cat copyfile.sh
+#! /bin/bash -x
+for filename in `ls *.txt`
+do
+        foldername=`echo $filename | awk -F. '{print $1}'`
+        if [ -d $foldername ]
+        then
+                rm -r $foldername
+        fi
+        mkdir $foldername
+        cp $filename  $foldername
+        echo $filename "copied to" $foldername
+done

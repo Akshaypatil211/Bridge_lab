@@ -1,0 +1,210 @@
+1)-Get the user info from /etc/passwd and change the ownership of home directory
+
+
+------------------------------------------------------------------------------------------------
+2)-Move files from one folder to the respective folders
+
+$ cat Copyfiles.sh
+#! /bin/bash -x
+for file in `ls *.txt`
+do
+foldername=`echo $file | awk -F. '{print $1}'`;
+if [ -d $foldername ]
+then
+        rm -r $foldername
+fi
+mkdir  $foldername;
+cp  $file $foldername
+done
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment (master)
+$ ./Copyfiles.sh
+++ ls abc.txt def.txt ghi.txt jkl.txt
++ for file in `ls *.txt`
+++ echo abc.txt
+++ awk -F. '{print $1}'
++ foldername=abc
++ '[' -d abc ']'
++ rm -r abc
++ mkdir abc
++ cp abc.txt abc
++ for file in `ls *.txt`
+++ echo def.txt
+++ awk -F. '{print $1}'
++ foldername=def
++ '[' -d def ']'
++ rm -r def
++ mkdir def
++ cp def.txt def
++ for file in `ls *.txt`
+++ echo ghi.txt
+++ awk -F. '{print $1}'
++ foldername=ghi
++ '[' -d ghi ']'
++ rm -r ghi
++ mkdir ghi
++ cp ghi.txt ghi
++ for file in `ls *.txt`
+++ echo jkl.txt
+++ awk -F. '{print $1}'
++ foldername=jkl
++ '[' -d jkl ']'
++ rm -r jkl
++ mkdir jkl
++ cp jkl.txt jkl
+
+------------------------------------------------------------------------------------------
+3)Append Current date to all log files have extension .log.1
+
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment/date (master)
+$ ls
+3  abc.log.1  def.log.1  ghi.log.1  jkl.log.1  logdate.sh*  mno.log.1
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment/date (master)
+$ cat logdate.sh
+#! /bin/bash
+for file in `ls *.log.1`
+do
+filename=`echo $file | awk -F. '{print $1}'`;
+echo $filename
+date=`date +%d%m%Y`
+echo $date
+#`date +%D | awk  -F/ '{print $0}'`
+mv $file $filename-$date.log
+done
+
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment/date (master)
+$ ./logdate.sh
+abc
+22082020
+def
+22082020
+ghi
+22082020
+jkl
+22082020
+mno
+22082020
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment/date (master)
+$ ls
+3                 def-22082020.log  jkl-22082020.log  mno-22082020.log
+abc-22082020.log  ghi-22082020.log  logdate.sh*
+
+---------------------------------------------------------------------------------------------------------
+4)Archieve the files from /var/log which is modified 7 days ago
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment (master)
+$ ls
+abc/        akshay/     Copyfiles.sh*  def.txt     ghi.txt  ls/
+abc.txt     backup/     date/          folder.sh*  jkl/     prac/
+access.log  backup.sh*  def/           ghi/        jkl.txt  user.sh*
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment (master)
+$ cat backup.sh
+#! /bin/bash -x
+files=`find -mtime +7`
+echo $files
+for x in $files
+do
+mv $x  backup
+done
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment (master)
+$ ./backup.sh
+++ find -mtime +7
++ files=./backup/passwd
++ echo ./backup/passwd
+./backup/passwd
++ for x in $files
++ mv ./backup/passwd backup
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment (master)
+$ ls backup
+passwd
+
+----------------------------------------------------------------------------------------------------------------
+5)Check if a folder exists or not
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment (master)
+$ cat folder.sh
+#!/bin/bash
+folders=`find  -type d`
+echo $folders
+read -p "enter the folder name u want to create : " foldername
+if [ -d $foldername ]
+then
+        echo "folder already exists"
+else
+mkdir $foldername
+echo "folder crated sucessfully"
+fi
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment (master)
+$ ./folder.sh
+. ./abc ./akshay ./backup ./date ./def ./ghi ./jkl ./ls ./prac ./date
+enter the folder name u want to create : akshay
+folder already exists
+
+---------------------------------------------------------------------
+6)Execute "Hello" and "ls" check execution status
+
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment (master)
+$ cat hello.sh
+#!/bin/bash -x
+read -p "enter command " command
+$command
+x=`echo $?`
+if [ $x -eq 0  ]
+then
+        echo "sucess"
+else
+        echo "fail"
+fi
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment (master)
+$ ./hello.sh
++ read -p 'enter command ' command
+enter command hello
++ hello
+./hello.sh: line 3: hello: command not found
+++ echo 127
++ x=127
++ '[' 127 -eq 0 ']'
++ echo fail
+fail
+
+Akshay Patil@DESKTOP-RQ9TU4G MINGW64 ~/TerminalCommands/linux-content/assignment (master)
+$ ./hello.sh
++ read -p 'enter command ' command
+enter command ls
++ ls
+''$'\033''[A'$'\033''[Bdate'   akshay         date        ghi        jkl.txt
+ abc                           backup         def         ghi.txt    ls
+ abc.txt                       backup.sh      def.txt     hello.sh   prac
+ access.log                    Copyfiles.sh   folder.sh   jkl        user.sh
+++ echo 0
++ x=0
++ '[' 0 -eq 0 ']'
++ echo sucess
+sucess
+
+
+-------------------------------------------------------------------------------------
+7)Set and enviroment 'usersecret='dH34xJaa23'
+
+---------------------------------------------------------------------------------------------------------------------
+8)Find the word and its occrrence in the files
+
+$ grep -c like access.log
+3022
+-----------------------------------------------------------------------------
+9)
+---------------------------------------------------------------------
+10)
+------------------------------------------------------------------------------
+11)
+------------------------------------------------------------------------------------------
